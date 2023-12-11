@@ -14,12 +14,20 @@ COPY . ./
 # Use old-releases for 21.04
 RUN printf "deb http://old-releases.ubuntu.com/ubuntu/ hirsute main restricted\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute-updates main restricted\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute universe\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute-updates universe\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute multiverse\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute-updates multiverse\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute-backports main restricted universe multiverse" > /etc/apt/sources.list
 
+RUN apt update
+RUN apt install -y python3 python3-pip python3-distutils
+RUN pip3 install "cython<3.0.0" wheel
+RUN pip3 install pyyaml==5.4.1 --no-build-isolation
+RUN sed -i 's/pyyaml==5.4/pyyaml==5.4.1/g' requirements.txt
+RUN pip install opencv-python
+RUN apt install -y libgl1-mesa-glx
 # Run the build
-RUN bash configure.sh install
+RUN bash configure.sh install 1
+#|| true
+#RUN cd SuperBuild/build && make
 
 # Clean Superbuild
 RUN bash configure.sh clean
-
 ### END Builder
 
 ### Use a second image for the final asset to reduce the number and
@@ -42,6 +50,13 @@ COPY --from=builder /usr/local /usr/local
 
 # Use old-releases for 21.04
 RUN printf "deb http://old-releases.ubuntu.com/ubuntu/ hirsute main restricted\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute-updates main restricted\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute universe\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute-updates universe\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute multiverse\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute-updates multiverse\ndeb http://old-releases.ubuntu.com/ubuntu/ hirsute-backports main restricted universe multiverse" > /etc/apt/sources.list
+RUN apt update
+RUN apt install -y python3 python3-pip python3-distutils
+RUN pip3 install "cython<3.0.0" wheel
+RUN pip3 install pyyaml==5.4.1 --no-build-isolation
+RUN sed -i 's/pyyaml==5.4/pyyaml==5.4.1/g' requirements.txt
+RUN pip install opencv-python
+RUN apt install -y libgl1-mesa-glx libtbb2
 
 # Install shared libraries that we depend on via APT, but *not*
 # the -dev packages to save space!

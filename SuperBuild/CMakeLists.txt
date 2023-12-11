@@ -209,8 +209,10 @@ else()
     endif()
 endif()
 externalproject_add(poissonrecon
-    GIT_REPOSITORY    https://github.com/OpenDroneMap/PoissonRecon.git
-    GIT_TAG           290
+    GIT_REPOSITORY    https://github.com/Cognitics/PoissonRecon.git
+    GIT_TAG arm64-compile-fix
+#https://github.com/mkazhdan/PoissonRecon.git
+#    GIT_TAG           290
     PREFIX            ${SB_BINARY_DIR}/PoissonRecon
     SOURCE_DIR        ${SB_SOURCE_DIR}/PoissonRecon
     UPDATE_COMMAND    ""
