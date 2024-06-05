@@ -46,7 +46,7 @@ class ODMOrthoPhotoStage(types.ODM_Stage):
                 'utm_offsets': '',
                 'a_srs': '',
                 'vars': '',
-                'gdal_configs': '--config GDAL_CACHEMAX 25%%'
+                'gdal_configs': '--config GDAL_CACHEMAX 10%'
             }
 
             models = []
