@@ -20,7 +20,7 @@ RUN pip3 install "cython<3.0.0" wheel
 RUN pip3 install pyyaml==5.4.1 --no-build-isolation
 RUN sed -i 's/pyyaml==5.4/pyyaml==5.4.1/g' requirements.txt
 RUN pip install numpy==1.23.1
-RUN pip install opencv-python==4.9.0.80 edt==2.0.2 numpy==1.23.1
+RUN pip install opencv-python==4.9.0.80 edt==2.0.2
 RUN apt install -y libgl1-mesa-glx
 # Run the build
 RUN bash configure.sh install 1
@@ -56,7 +56,8 @@ RUN apt install -y python3 python3-pip python3-distutils
 RUN pip3 install "cython<3.0.0" wheel
 RUN pip3 install pyyaml==5.4.1 --no-build-isolation
 RUN sed -i 's/pyyaml==5.4/pyyaml==5.4.1/g' requirements.txt
-RUN pip install opencv-python==4.9.0.80 edt==2.0.2 numpy==1.23.1
+RUN pip install numpy==1.23.1
+RUN pip install opencv-python==4.9.0.80 edt==2.0.2
 RUN apt install -y libgl1-mesa-glx libtbb2
 
 # Install shared libraries that we depend on via APT, but *not*
